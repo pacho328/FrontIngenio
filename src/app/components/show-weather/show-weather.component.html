@@ -1,0 +1,72 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="card">
+        <div class="card-body text-center">
+          <h3> Clima --> Prueba ingenio</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="titulo"> Agregar clima </h5>
+          <form [formGroup]="form" (ngSubmit)="agregarClima()">
+            <div class="input-group input-group-lg mb-3">
+              <span class="input-group-text">
+                <i class="fa-solid fa-cloud"
+                [class.green-icon]="this.form.get('clima')?.valid"
+                [class.red-icon]="this.form.get('clima')?.invalid && this.form.get('clima')?.touched"></i>
+              </span>
+              <input formControlName="clima" type="text" class="form-control" placeholder="Clima">
+            </div>
+
+            <div class="input-group input-group-lg mb-3">
+              <span class="input-group-text">
+                <i class="fa-solid fa-location-dot"
+                [class.green-icon]="this.form.get('ubicacion')?.valid"
+                [class.red-icon]="this.form.get('ubicacion')?.invalid && this.form.get('ubicacion')?.touched"></i>
+              </span>
+              <input formControlName="ubicacion" type="text" class="form-control" placeholder="Ubicación">
+            </div>
+
+            <div class="input-group input-group-lg mb-3">
+              <span class="input-group-text">
+                <i class="fa-solid fa-calendar-days"
+                [class.green-icon]="this.form.get('fecha')?.valid"
+                [class.red-icon]="this.form.get('fecha')?.invalid && this.form.get('fecha')?.touched"
+                ></i>
+              </span>
+              <input formControlName="fecha"  type="text" class="form-control" placeholder="DD/MM/AAAA">
+            </div>
+            <button [disabled]="this.form.invalid" class="btn btn-success btn-lg">Agregar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="titulo"> Listado de climas </h5>
+          <table class="table">
+            <tbody>
+              <tr *ngFor="let clima of listTarjetas; let i = index">
+                <td> {{clima.clima}} </td>
+                <td> {{clima.ubicacion}}</td>
+                <td> {{clima.fecha}}</td>
+                <td>
+                  <i class="far fa-edit text-info"></i>
+                </td>
+                <td>
+                  <i (click)="mostrarDialogo(i) " class="far fa-trash-alt text-danger"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
