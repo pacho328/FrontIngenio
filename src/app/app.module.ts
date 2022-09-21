@@ -1,22 +1,24 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ShowWeatherComponent } from './components/show-weather/show-weather.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogoConfirmacionComponent } from './components/dialogo-confirmacion/dialogo-confirmacion.component';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { AuthInterceptor } from './services/auth/auth.interceptor';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { BooksAuthorsComponent } from './components/books-authors/books-authors.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShowWeatherComponent,
     DialogoConfirmacionComponent,
-
+    HomePageComponent,
+    BooksAuthorsComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,8 +27,16 @@ import { DialogoConfirmacionComponent } from './components/dialogo-confirmacion/
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
     MatDialogModule,
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents:[
     DialogoConfirmacionComponent,

@@ -1,0 +1,97 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="card">
+        <div class="card-body text-center">
+          <h3> Books --> Prueba ingenio</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="titulo"> Agregar Libro </h5>
+          <form [formGroup]="form" (ngSubmit)="addBook()">
+            <div class="input-group input-group-lg mb-3">
+              <span class="input-group-text">
+                <i class="fa-solid fa-book"
+                [class.green-icon]="this.form.get('title')?.valid"
+                [class.red-icon]="this.form.get('title')?.invalid && this.form.get('title')?.touched"></i>
+              </span>
+              <input formControlName="title" type="text" class="form-control" placeholder="Titulo">
+            </div>
+
+            <div class="input-group input-group-lg mb-3">
+              <span class="input-group-text">
+                <i class="fa-solid fa-paragraph"
+                [class.green-icon]="this.form.get('description')?.valid"
+                [class.red-icon]="this.form.get('description')?.invalid && this.form.get('description')?.touched"></i>
+              </span>
+              <input formControlName="description" type="text" class="form-control" placeholder="Descripción">
+            </div>
+
+            <div class="input-group input-group-lg mb-3">
+              <span class="input-group-text">
+                <i class="fa-solid fa-sheet-plastic"
+                [class.green-icon]="this.form.get('pageCount')?.valid"
+                [class.red-icon]="this.form.get('pageCount')?.invalid && this.form.get('pageCount')?.touched"
+                ></i>
+              </span>
+              <input formControlName="pageCount"  type="text" class="form-control" placeholder="Paginas">
+            </div>
+
+            <div class="input-group input-group-lg mb-3">
+              <span class="input-group-text">
+                <i class="fa-brands fa-ideal"
+                [class.green-icon]="this.form.get('excerpt')?.valid"
+                [class.red-icon]="this.form.get('excerpt')?.invalid && this.form.get('excerpt')?.touched"
+                ></i>
+              </span>
+              <input formControlName="excerpt"  type="text" class="form-control" placeholder="Extracto">
+            </div>
+
+            <div class="input-group input-group-lg mb-3">
+              <span class="input-group-text">
+                <i class="fa-solid fa-calendar-days"
+                [class.green-icon]="this.form.get('publishDate')?.valid"
+                [class.red-icon]="this.form.get('publishDate')?.invalid && this.form.get('publishDate')?.touched"
+                ></i>
+              </span>
+              <input formControlName="publishDate"  type="text" class="form-control" placeholder="yyyy-MM-dd">
+            </div>
+
+            <button [disabled]="this.form.invalid" class="btn btn-success btn-lg">Agregar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="titulo"> Listado de libros </h5>
+          <table class="table" id="excel-table">
+            <tbody>
+              <tr *ngFor="let bookt of bookslist">
+                <td> {{bookt.title}} </td>
+                <td> {{bookt.description}}</td>
+                <td> {{bookt.pageCount}}</td>
+                <td> {{bookt.excerpt}}</td>
+                <td> {{bookt.publishDate}}</td>
+                <td>
+                  <i class="far fa-edit text-info"></i>
+                </td>
+                <td>
+                  <i (click)="mostrarDialogo(bookt.id) " class="far fa-trash-alt text-danger"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button (click)="exportexcel()" class="btn btn-success btn-lg">Exportar Excel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
